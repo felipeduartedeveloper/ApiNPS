@@ -10,12 +10,14 @@ class UserController {
     
     const usersRepository = getRepository(User);
 
-    
+    // Tratando usuário cadastro duplicado com base no email
     const userAlreadyExist = await usersRepository.findOne({
        email 
       });
 
+      // Verificando se um usuário existe
     if (userAlreadyExist) {
+      // Passando status de erro 400 para usuário duplicado
       return response.status(400).json({ 
         error: "Usuário já existe"});
     }
