@@ -1,14 +1,14 @@
 import { error } from 'console';
 import { Request, Response } from 'express';
-import { getRepository } from "typeorm";
-import { User } from "../models/User";
+import { getCustomRepository } from "typeorm";
+import { UsersRepository } from '../repositories/UsersRepository';
 
 
 class UserController {
   async create(request: Request, response: Response) {
     const { name, email } = request.body;
     
-    const usersRepository = getRepository(User);
+    const usersRepository = getCustomRepository(UsersRepository);
 
     // Tratando usuário cadastro duplicado com base no email
     const userAlreadyExist = await usersRepository.findOne({
